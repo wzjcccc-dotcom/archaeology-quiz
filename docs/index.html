@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>考古題測驗</title>
+    <link rel="stylesheet" href="./style.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <header class="hero">
+        <p class="eyebrow">Past Exam Trainer</p>
+        <h1>考古題測驗網站</h1>
+        <p class="hero-copy">
+          先選模式，再開始模擬測驗。題目內容與選項保持原樣，並顯示來源序號與單元名稱。
+        </p>
+      </header>
+
+      <main id="app" class="layout">
+        <section class="panel panel-accent" id="setup-panel">
+          <h2>開始測驗</h2>
+          <div class="mode-grid">
+            <button class="mode-card" data-mode="unit">
+              <span class="mode-label">模式一</span>
+              <strong>單元隨機 10 題</strong>
+              <span>先選單元，再抽 10 題立即作答。</span>
+            </button>
+            <button class="mode-card" data-mode="mixed">
+              <span class="mode-label">模式二</span>
+              <strong>全庫平均抽 50 題</strong>
+              <span>跨單元分配題目，結束後看各單元成績。</span>
+            </button>
+          </div>
+
+          <div id="unit-picker" class="unit-picker hidden">
+            <label for="unit-select">選擇單元</label>
+            <select id="unit-select"></select>
+            <button id="start-unit-quiz" class="primary-button">開始單元測驗</button>
+          </div>
+
+          <div class="data-meta" id="data-meta"></div>
+        </section>
+
+        <section class="panel hidden" id="quiz-panel">
+          <div class="quiz-toolbar">
+            <div>
+              <p id="progress-text" class="progress-text"></p>
+              <p id="quiz-mode-text" class="subtle-text"></p>
+            </div>
+            <button id="restart-button" class="secondary-button">重新開始</button>
+          </div>
+
+          <article class="question-card">
+            <div class="question-header">
+              <span id="question-source" class="pill"></span>
+              <span id="question-unit" class="pill pill-muted"></span>
+            </div>
+            <div id="question-stem" class="question-stem"></div>
+            <div id="options-list" class="options-list"></div>
+            <div id="feedback-box" class="feedback-box hidden"></div>
+          </article>
+
+          <div class="quiz-actions">
+            <button id="next-button" class="primary-button" disabled>下一題</button>
+          </div>
+        </section>
+
+        <section class="panel hidden" id="result-panel">
+          <div class="result-header">
+            <div>
+              <h2>測驗結果</h2>
+              <p id="result-summary" class="subtle-text"></p>
+            </div>
+            <button id="restart-result-button" class="secondary-button">重新開始</button>
+          </div>
+
+          <div id="result-body" class="result-body"></div>
+        </section>
+      </main>
+    </div>
+
+    <template id="unit-result-template">
+      <div class="unit-result-row">
+        <span class="unit-result-name"></span>
+        <span class="unit-result-score"></span>
+      </div>
+    </template>
+
+    <script src="./app.js" defer></script>
+  </body>
+</html>
