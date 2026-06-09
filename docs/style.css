@@ -190,6 +190,83 @@ select {
   line-height: 1.6;
 }
 
+.dashboard-panel {
+  display: grid;
+  gap: 18px;
+}
+
+.dashboard-header h2,
+.history-card-header h3 {
+  margin: 0;
+}
+
+.dashboard-header p {
+  margin: 8px 0 0;
+}
+
+.history-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 16px;
+}
+
+.history-card {
+  padding: 18px;
+  border-radius: var(--radius-md);
+  background: var(--card-strong);
+  border: 1px solid rgba(31, 42, 44, 0.08);
+}
+
+.history-card-header {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.history-average {
+  color: var(--primary-strong);
+  font-weight: 700;
+}
+
+.history-list {
+  display: grid;
+  gap: 10px;
+}
+
+.history-entry {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  align-items: flex-start;
+  padding: 14px 16px;
+  border-radius: var(--radius-sm);
+  background: rgba(239, 230, 212, 0.45);
+}
+
+.history-entry-title {
+  display: block;
+  margin-bottom: 4px;
+}
+
+.history-entry-meta {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.94rem;
+  line-height: 1.5;
+}
+
+.history-entry-score {
+  font-weight: 800;
+  white-space: nowrap;
+}
+
+.history-empty {
+  margin: 0;
+  color: var(--muted);
+}
+
 .quiz-toolbar,
 .result-header {
   display: flex;
@@ -226,6 +303,35 @@ select {
 .pill-muted {
   background: rgba(23, 98, 75, 0.12);
   color: var(--success);
+}
+
+.timer-box {
+  min-width: 150px;
+  padding: 12px 16px;
+  border-radius: var(--radius-md);
+  background: rgba(31, 42, 44, 0.06);
+  text-align: right;
+}
+
+.timer-label {
+  display: block;
+  color: var(--muted);
+  font-size: 0.88rem;
+}
+
+.timer-value {
+  display: block;
+  margin-top: 4px;
+  font-size: 1.4rem;
+}
+
+.timer-box.overtime {
+  background: rgba(156, 47, 47, 0.12);
+}
+
+.timer-box.overtime .timer-label,
+.timer-box.overtime .timer-value {
+  color: var(--error);
 }
 
 .question-stem {
@@ -333,12 +439,19 @@ select {
 
   .quiz-toolbar,
   .result-header,
+  .history-card-header,
   .score-card,
-  .unit-result-row {
+  .unit-result-row,
+  .history-entry {
     flex-direction: column;
   }
 
   .question-card {
     padding: 18px;
+  }
+
+  .timer-box {
+    width: 100%;
+    text-align: left;
   }
 }

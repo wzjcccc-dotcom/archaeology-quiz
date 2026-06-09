@@ -20,15 +20,20 @@
         <section class="panel panel-accent" id="setup-panel">
           <h2>開始測驗</h2>
           <div class="mode-grid">
-            <button class="mode-card" data-mode="unit">
+            <button class="mode-card" data-mode="unit10">
               <span class="mode-label">模式一</span>
               <strong>單元隨機 10 題</strong>
               <span>先選單元，再抽 10 題立即作答。</span>
             </button>
-            <button class="mode-card" data-mode="mixed">
+            <button class="mode-card" data-mode="mixed50">
               <span class="mode-label">模式二</span>
               <strong>全庫平均抽 50 題</strong>
               <span>跨單元分配題目，結束後看各單元成績。</span>
+            </button>
+            <button class="mode-card" data-mode="mixed100">
+              <span class="mode-label">模式三</span>
+              <strong>全庫平均抽 100 題</strong>
+              <span>跨單元分配題目，限時 90 分鐘，時間到後顯示超時計時。</span>
             </button>
           </div>
 
@@ -41,11 +46,50 @@
           <div class="data-meta" id="data-meta"></div>
         </section>
 
+        <section class="panel dashboard-panel" id="insights-panel">
+          <div class="dashboard-header">
+            <div>
+              <h2>測驗紀錄與錯題統計</h2>
+              <p class="subtle-text">紀錄只保存在目前瀏覽器，模式二與模式三各保留最近 10 次。</p>
+            </div>
+          </div>
+
+          <div class="history-grid">
+            <article class="history-card">
+              <div class="history-card-header">
+                <h3>模式二紀錄</h3>
+                <span id="mixed50-average" class="history-average">平均正確率 0%</span>
+              </div>
+              <div id="mixed50-history" class="history-list"></div>
+            </article>
+
+            <article class="history-card">
+              <div class="history-card-header">
+                <h3>模式三紀錄</h3>
+                <span id="mixed100-average" class="history-average">平均正確率 0%</span>
+              </div>
+              <div id="mixed100-history" class="history-list"></div>
+            </article>
+          </div>
+
+          <article class="history-card wrong-stats-card">
+            <div class="history-card-header">
+              <h3>錯題統計排行</h3>
+              <span class="history-average">按單元累積</span>
+            </div>
+            <div id="wrong-stats-list" class="history-list"></div>
+          </article>
+        </section>
+
         <section class="panel hidden" id="quiz-panel">
           <div class="quiz-toolbar">
             <div>
               <p id="progress-text" class="progress-text"></p>
               <p id="quiz-mode-text" class="subtle-text"></p>
+            </div>
+            <div id="timer-box" class="timer-box hidden">
+              <span id="timer-label" class="timer-label">剩餘時間</span>
+              <strong id="timer-value" class="timer-value">90:00</strong>
             </div>
             <button id="restart-button" class="secondary-button">重新開始</button>
           </div>
@@ -83,6 +127,26 @@
       <div class="unit-result-row">
         <span class="unit-result-name"></span>
         <span class="unit-result-score"></span>
+      </div>
+    </template>
+
+    <template id="history-entry-template">
+      <div class="history-entry">
+        <div>
+          <strong class="history-entry-title"></strong>
+          <p class="history-entry-meta"></p>
+        </div>
+        <span class="history-entry-score"></span>
+      </div>
+    </template>
+
+    <template id="wrong-stat-template">
+      <div class="history-entry">
+        <div>
+          <strong class="history-entry-title"></strong>
+          <p class="history-entry-meta"></p>
+        </div>
+        <span class="history-entry-score"></span>
       </div>
     </template>
 
