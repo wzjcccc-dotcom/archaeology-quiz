@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>考古題測驗</title>
-    <link rel="stylesheet" href="./style.css" />
+    <link rel="stylesheet" href="./style.css?v=20260609-2" />
   </head>
   <body>
     <div class="app-shell">
@@ -20,17 +20,17 @@
         <section class="panel panel-accent" id="setup-panel">
           <h2>開始測驗</h2>
           <div class="mode-grid">
-            <button class="mode-card" data-mode="unit10">
+            <button class="mode-card" id="mode-unit10-button" data-mode="unit10" type="button">
               <span class="mode-label">模式一</span>
               <strong>單元隨機 10 題</strong>
               <span>先選單元，再抽 10 題立即作答。</span>
             </button>
-            <button class="mode-card" data-mode="mixed50">
+            <button class="mode-card" id="mode-mixed50-button" data-mode="mixed50" type="button">
               <span class="mode-label">模式二</span>
               <strong>全庫平均抽 50 題</strong>
               <span>跨單元分配題目，結束後看各單元成績。</span>
             </button>
-            <button class="mode-card" data-mode="mixed100">
+            <button class="mode-card" id="mode-mixed100-button" data-mode="mixed100" type="button">
               <span class="mode-label">模式三</span>
               <strong>全庫平均抽 100 題</strong>
               <span>跨單元分配題目，限時 90 分鐘，時間到後顯示超時計時。</span>
@@ -164,6 +164,6 @@
       </div>
     </template>
 
-    <script src="./app.js" defer></script>
+    <script src="./app.js?v=20260609-2" defer></script>
   </body>
 </html>

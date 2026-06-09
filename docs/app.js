@@ -62,6 +62,9 @@ const state = {
 };
 
 const elements = {
+  modeUnit10Button: document.querySelector("#mode-unit10-button"),
+  modeMixed50Button: document.querySelector("#mode-mixed50-button"),
+  modeMixed100Button: document.querySelector("#mode-mixed100-button"),
   setupPanel: document.querySelector("#setup-panel"),
   quizPanel: document.querySelector("#quiz-panel"),
   resultPanel: document.querySelector("#result-panel"),
@@ -286,7 +289,7 @@ function showInsights(section) {
 
 function setPendingMode(mode) {
   state.pendingMode = mode;
-  document.querySelectorAll("[data-mode]").forEach((button) => {
+  [elements.modeUnit10Button, elements.modeMixed50Button, elements.modeMixed100Button].forEach((button) => {
     button.classList.toggle("selected-mode", button.dataset.mode === mode);
   });
   elements.unitPicker.classList.toggle("hidden", mode !== "unit10");
@@ -683,20 +686,37 @@ async function loadBank() {
 }
 
 function bindEvents() {
-  document.querySelectorAll("[data-mode]").forEach((button) => {
-    button.addEventListener("click", () => {
-      const mode = button.dataset.mode;
-      setPendingMode(mode);
-      if (mode !== "unit10") {
-        startQuiz(mode);
-      }
-    });
+  elements.modeUnit10Button.addEventListener("click", (event) => {
+    event.preventDefault();
+    setPendingMode("unit10");
   });
 
-  document.querySelector("#start-unit-quiz").addEventListener("click", () => startQuiz(state.pendingMode || "unit10"));
-  elements.historyToggleButton.addEventListener("click", () => showInsights("history"));
-  elements.wrongStatsToggleButton.addEventListener("click", () => showInsights("wrongStats"));
-  elements.closeInsightsButton.addEventListener("click", () => {
+  elements.modeMixed50Button.addEventListener("click", (event) => {
+    event.preventDefault();
+    setPendingMode("mixed50");
+    startQuiz("mixed50");
+  });
+
+  elements.modeMixed100Button.addEventListener("click", (event) => {
+    event.preventDefault();
+    setPendingMode("mixed100");
+    startQuiz("mixed100");
+  });
+
+  document.querySelector("#start-unit-quiz").addEventListener("click", (event) => {
+    event.preventDefault();
+    startQuiz("unit10");
+  });
+  elements.historyToggleButton.addEventListener("click", (event) => {
+    event.preventDefault();
+    showInsights("history");
+  });
+  elements.wrongStatsToggleButton.addEventListener("click", (event) => {
+    event.preventDefault();
+    showInsights("wrongStats");
+  });
+  elements.closeInsightsButton.addEventListener("click", (event) => {
+    event.preventDefault();
     elements.insightsPanel.classList.add("hidden");
   });
   elements.nextButton.addEventListener("click", () => {
