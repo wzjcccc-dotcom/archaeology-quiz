@@ -37,6 +37,19 @@
             </button>
           </div>
 
+          <div class="mode-grid utility-grid">
+            <button class="mode-card utility-card" id="history-toggle-button" type="button">
+              <span class="mode-label">查詢功能</span>
+              <strong>測驗紀錄</strong>
+              <span>查看模式二與模式三最近 10 次紀錄，以及各模式平均正確率。</span>
+            </button>
+            <button class="mode-card utility-card" id="wrong-stats-toggle-button" type="button">
+              <span class="mode-label">查詢功能</span>
+              <strong>錯題統計</strong>
+              <span>按單元查看累積錯題排行，錯越多排越前面。</span>
+            </button>
+          </div>
+
           <div id="unit-picker" class="unit-picker hidden">
             <label for="unit-select">選擇單元</label>
             <select id="unit-select"></select>
@@ -46,15 +59,16 @@
           <div class="data-meta" id="data-meta"></div>
         </section>
 
-        <section class="panel dashboard-panel" id="insights-panel">
+        <section class="panel dashboard-panel hidden" id="insights-panel">
           <div class="dashboard-header">
             <div>
               <h2>測驗紀錄與錯題統計</h2>
               <p class="subtle-text">紀錄只保存在目前瀏覽器，模式二與模式三各保留最近 10 次。</p>
             </div>
+            <button id="close-insights-button" class="secondary-button" type="button">關閉</button>
           </div>
 
-          <div class="history-grid">
+          <div id="history-section" class="history-grid hidden">
             <article class="history-card">
               <div class="history-card-header">
                 <h3>模式二紀錄</h3>
@@ -72,7 +86,7 @@
             </article>
           </div>
 
-          <article class="history-card wrong-stats-card">
+          <article id="wrong-stats-section" class="history-card wrong-stats-card hidden">
             <div class="history-card-header">
               <h3>錯題統計排行</h3>
               <span class="history-average">按單元累積</span>

@@ -91,6 +91,16 @@ body {
   margin-top: 18px;
 }
 
+.utility-grid {
+  margin-top: 16px;
+}
+
+.utility-card {
+  background:
+    linear-gradient(135deg, rgba(255, 249, 240, 0.95), rgba(245, 238, 224, 0.95)),
+    var(--card-strong);
+}
+
 .mode-card,
 .primary-button,
 .secondary-button,
@@ -114,6 +124,12 @@ body {
   border-color: rgba(170, 63, 36, 0.38);
   box-shadow: 0 16px 30px rgba(170, 63, 36, 0.1);
   outline: none;
+}
+
+.mode-card.selected-mode {
+  border-color: rgba(170, 63, 36, 0.6);
+  background: rgba(170, 63, 36, 0.08);
+  box-shadow: 0 14px 26px rgba(170, 63, 36, 0.12);
 }
 
 .mode-label {

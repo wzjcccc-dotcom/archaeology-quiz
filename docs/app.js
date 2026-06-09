@@ -45,6 +45,7 @@ const CHINESE_NUMERALS = {
 const state = {
   bank: null,
   mode: null,
+  pendingMode: null,
   selectedUnit: null,
   questions: [],
   currentIndex: 0,
@@ -82,6 +83,12 @@ const elements = {
   timerBox: document.querySelector("#timer-box"),
   timerLabel: document.querySelector("#timer-label"),
   timerValue: document.querySelector("#timer-value"),
+  insightsPanel: document.querySelector("#insights-panel"),
+  historySection: document.querySelector("#history-section"),
+  wrongStatsSection: document.querySelector("#wrong-stats-section"),
+  historyToggleButton: document.querySelector("#history-toggle-button"),
+  wrongStatsToggleButton: document.querySelector("#wrong-stats-toggle-button"),
+  closeInsightsButton: document.querySelector("#close-insights-button"),
   mixed50History: document.querySelector("#mixed50-history"),
   mixed100History: document.querySelector("#mixed100-history"),
   mixed50Average: document.querySelector("#mixed50-average"),
@@ -237,6 +244,9 @@ function setPanelVisibility(panelName) {
   elements.setupPanel.classList.toggle("hidden", panelName !== "setup");
   elements.quizPanel.classList.toggle("hidden", panelName !== "quiz");
   elements.resultPanel.classList.toggle("hidden", panelName !== "result");
+  if (panelName !== "setup") {
+    elements.insightsPanel.classList.add("hidden");
+  }
 }
 
 function stopTimer() {
@@ -255,6 +265,7 @@ function stopTimer() {
 function resetState() {
   stopTimer();
   state.mode = null;
+  state.pendingMode = null;
   state.selectedUnit = null;
   state.questions = [];
   state.currentIndex = 0;
@@ -265,6 +276,20 @@ function resetState() {
   elements.nextButton.disabled = true;
   setPanelVisibility("setup");
   renderHistoryPanels();
+}
+
+function showInsights(section) {
+  elements.insightsPanel.classList.remove("hidden");
+  elements.historySection.classList.toggle("hidden", section !== "history");
+  elements.wrongStatsSection.classList.toggle("hidden", section !== "wrongStats");
+}
+
+function setPendingMode(mode) {
+  state.pendingMode = mode;
+  document.querySelectorAll("[data-mode]").forEach((button) => {
+    button.classList.toggle("selected-mode", button.dataset.mode === mode);
+  });
+  elements.unitPicker.classList.toggle("hidden", mode !== "unit10");
 }
 
 function renderMeta() {
@@ -390,6 +415,7 @@ function startModeTimer(mode) {
 function startQuiz(mode) {
   stopTimer();
   state.mode = mode;
+  state.pendingMode = mode;
   state.currentIndex = 0;
   state.results = new Map();
   state.quizStartedAt = Date.now();
@@ -660,16 +686,19 @@ function bindEvents() {
   document.querySelectorAll("[data-mode]").forEach((button) => {
     button.addEventListener("click", () => {
       const mode = button.dataset.mode;
-      if (mode === "unit10") {
-        state.mode = mode;
-        elements.unitPicker.classList.remove("hidden");
-      } else {
+      setPendingMode(mode);
+      if (mode !== "unit10") {
         startQuiz(mode);
       }
     });
   });
 
-  document.querySelector("#start-unit-quiz").addEventListener("click", () => startQuiz("unit10"));
+  document.querySelector("#start-unit-quiz").addEventListener("click", () => startQuiz(state.pendingMode || "unit10"));
+  elements.historyToggleButton.addEventListener("click", () => showInsights("history"));
+  elements.wrongStatsToggleButton.addEventListener("click", () => showInsights("wrongStats"));
+  elements.closeInsightsButton.addEventListener("click", () => {
+    elements.insightsPanel.classList.add("hidden");
+  });
   elements.nextButton.addEventListener("click", () => {
     if (state.currentIndex === state.questions.length - 1) {
       renderResults();
